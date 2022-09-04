@@ -8,7 +8,7 @@ Dear Maarten. Every year again, we have the tradition to send eachother a progra
 Now that we can actually celebrate your birthday in person, I'm not planning on changing that tradition.
 So here it is, the present of this year!
 
-Last year I had developed [a tool where you could develop your own Happy Birthday message](https://maarten.mennovandenende.nl/).
+Last year I developed [a tool where you could develop your own Happy Birthday message](https://maarten.mennovandenende.nl/).
 Well develop... Let's say that randomly slamming keys on your keyboard would also have resulted in a working piece of code :wink:.
 This year however, I've decided that you actually have to make your present yourself. This time not with code, but with hardware.
 
