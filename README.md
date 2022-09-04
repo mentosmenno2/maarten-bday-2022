@@ -2,6 +2,8 @@
 
 > :exclamation: Please read this text and complete everything before looking at the actual source code.
 
+## Introduction
+
 Dear Maarten. Every year again, we have the tradition to send eachother a programming puzzle, or develop something.
 Now that we can actually celebrate your birthday in person, I'm not planning on changing that tradition.
 So here it is, the present of this year!
