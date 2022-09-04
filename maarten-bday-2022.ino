@@ -9,9 +9,9 @@
 
 // Define pins
 #define PIN_PIEZO 11
-#define PIN_BUTTON_RESET 6
+#define PIN_BUTTON_RESET 8
 #define PIN_BUTTON_ADD 7
-#define PIN_BUTTON_NEXT 8
+#define PIN_BUTTON_NEXT 6
 
 // Define display constants
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -25,6 +25,7 @@ int levelNumber = 0;
 unsigned int gameStartTimestampMillis = 0;
 
 void setup() {
+  // Setup the serial monitor
   Serial.begin(9600);
 
   // Setup the display
@@ -34,10 +35,13 @@ void setup() {
   }
   display.setTextColor(SSD1306_WHITE);
 
-  // Setup buttons
+  // Setup the buttons
   pinMode(PIN_BUTTON_RESET, INPUT);
   pinMode(PIN_BUTTON_ADD, INPUT);
   pinMode(PIN_BUTTON_NEXT, INPUT);
+
+  // Setup the speaker
+  pinMode(PIN_PIEZO, OUTPUT);
 }
 
 void loop() {
@@ -82,6 +86,14 @@ void playCurrentLevel() {
     case 8:
       displayLevelMessage();
       playLevelEight();
+      break;
+    case 9:
+      displayLevelMessage();
+      playLevelNine();
+      break;
+    case 10:
+      displayLevelMessage();
+      playLevelTen();
       break;
     default:
       playLevelFinished();
@@ -143,14 +155,34 @@ void playLevelFinished() {
   delay(5000);
 }
 
-void playLevelEight() {
+void playLevelTen() {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.println("Decodeer:\r\n26 5 19 5 14 20 23 9 14 20 9 7");
+  display.display();
+
+  awaitCorrectAnswer(26);
+}
+
+void playLevelNine() {
   display.clearDisplay();
   display.setTextSize(1);
   display.setCursor(0, 0);
   display.println("Op welke vraagindex\r\nzijn we nu?");
   display.display();
 
-  awaitCorrectAnswer(7);
+  awaitCorrectAnswer(8);
+}
+
+void playLevelEight() {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.println("Waar zijn we?\r\n###.0.0.1");
+  display.display();
+
+  awaitCorrectAnswer(127);
 }
 
 void playLevelSeven() {
@@ -245,19 +277,19 @@ void playLevelZero() {
   display.clearDisplay();
   display.setCursor(0, 0);
   display.setTextSize(1);
-  display.println(F("Elk jaar maken we met\r\nonze verjaardagen\r\nprogrammeerpuzzeltjes\r\nvoor elkaar."));
+  display.println(F("Ben je klaar\r\nvoor een kleine\r\nquiz?"));
   display.display();
   delay(10000);
 
   display.clearDisplay();
   display.setCursor(0, 0);
   display.setTextSize(1);
-  display.println(F("Dus ook dit jaar!\r\nMaar niet alleen\r\nprogrammeerpuzzletjes\r\n...      LETS GO!!!"));
+  display.println(F("Dit jaar niet\r\nmet alleen maar\r\nprogrammeerpuzzletjes\r\n...      LETS GO!!!"));
   display.display();
   delay(10000);
 }
 
-// Await logic
+// Await input logic
 
 void awaitCorrectAnswer(int correctAnswer) {
   int userInput = awaitUserInput();
@@ -321,7 +353,7 @@ int awaitUserInput() {
   return currentInput;
 }
 
-// Messages
+// Display messages
 
 void displayLevelMessage() {
   display.clearDisplay();
@@ -345,7 +377,7 @@ void displayCurrentInputValue(int input) {
   display.display();
 }
 
-// Sounds
+// Play sounds
 
 void playSoundSuccess() {
   tone(PIN_PIEZO, NOTE_E6, 125);
@@ -397,6 +429,7 @@ void playLoadedSound() {
 }
 
 void playHappyBirthday() {
+  for (int i = 0; i < 2; i++) {
     tone(PIN_PIEZO, 131);
     delay(250);
     noTone(PIN_PIEZO);
@@ -456,5 +489,6 @@ void playHappyBirthday() {
     tone(PIN_PIEZO, 175);
     delay(1000);
     noTone(PIN_PIEZO);
-    delay(100);
+    delay(2000);
+  }
 }

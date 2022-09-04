@@ -19,6 +19,7 @@ As said, you will have to build the hardware yourself. To make your life easier,
 - Red wires: 5 Volt power
 - Black wires: Ground
 - All other wires: Input/output/datatransfer wires
+- Please note: I might not have brought the exact same color wires with me.
 
 ![schematic](./schematic.png)
 
